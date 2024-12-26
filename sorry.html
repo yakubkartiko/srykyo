@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry Message</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+
+        .page {
+            display: none;
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .active {
+            display: block;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4267B2;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #365899;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .message {
+            font-size: 18px;
+            margin: 20px 0;
+            color: #1c1e21;
+        }
+    </style>
+</head>
+<body>
+    <!-- Halaman 1 -->
+    <div id="page1" class="page active">
+        <h2>Masukkan Nama Kamu!</h2>
+        <input type="text" id="nameInput" placeholder="Ketik nama disini...">
+        <div id="errorMessage" class="error">Nama tidak boleh kosong!</div>
+        <button onclick="submitName()">Isi</button>
+    </div>
+
+    <!-- Halaman 2 -->
+    <div id="page2" class="page">
+        <div class="message"></div>
+        <div class="message">Jangan ngambek yah, sorry yah kalo nyebelinn</div>
+        <div class="message">Sekarang buka blokir nya yah, plzz</div>
+        <button onclick="prevPage(2)">Kembali</button>
+        <button onclick="nextPage(2)">Kalo masih ngambek</button>
+    </div>
+
+    <!-- Halaman 3 -->
+    <div id="page3" class="page">
+        <div class="message"></div>
+        <button onclick="prevPage(3)">Kembali</button>
+        <button onclick="nextPage(3)">Harapan terakhir☹</button>
+    </div>
+
+    <!-- Halaman 4 -->
+    <div id="page4" class="page">
+        <img src="images/tiketkyo_crop.jpg" alt="Sorry Image">
+        <div class="message">jangan ngambek lagi yahh</div>
+        <div class="message">-Yabubu-</div>
+    </div>
+
+    <script>
+        let userName = '';
+
+        function submitName() {
+            const nameInput = document.getElementById('nameInput');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (nameInput.value.trim() === '') {
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            userName = nameInput.value;
+            errorMessage.style.display = 'none';
+            nextPage(1);
+            
+            // Set nama di halaman 2 dan 3
+            document.querySelector('#page2 .message:first-child').textContent = `Hey ${userName}!`;
+            document.querySelector('#page3 .message:first-child').textContent = `${userName} masih ngambek nih ceritanya?`;
+        }
+
+        function nextPage(currentPage) {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            document.getElementById(`page${currentPage + 1}`).classList.add('active');
+        }
+
+        function prevPage(currentPage) {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            document.getElementById(`page${currentPage - 1}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
